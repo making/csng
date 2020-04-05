@@ -15,13 +15,13 @@
  */
 package test;
 
-import am.ik.tsng.TypeSafeName;
+import am.ik.csng.CompileSafeName;
 
 public class CarField {
 	final String name;
 	final int gas;
 
-	public CarField(@TypeSafeName(field = true) String name, @TypeSafeName(field = true) int gas) {
+	public CarField(@CompileSafeName(field = true) String name, @CompileSafeName(field = true) int gas) {
 		this.name = name;
 		this.gas = gas;
 	}

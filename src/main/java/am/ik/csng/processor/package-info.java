@@ -13,17 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package am.ik.tsng;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Target({ ElementType.METHOD, ElementType.PARAMETER })
-@Retention(RetentionPolicy.SOURCE)
-public @interface TypeSafeName {
-	boolean getter() default true;
-
-	boolean field() default false;
-}
+package am.ik.csng.processor;

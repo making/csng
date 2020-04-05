@@ -15,7 +15,7 @@
  */
 package test;
 
-import am.ik.tsng.TypeSafeName;
+import am.ik.csng.CompileSafeName;
 
 public class CarBean {
     private String name;
@@ -26,7 +26,7 @@ public class CarBean {
         this.gas = gas;
     }
 
-    @TypeSafeName
+    @CompileSafeName
     public String getName() {
         return this.name;
     }
@@ -35,7 +35,7 @@ public class CarBean {
         this.name = name;
     }
 
-    @TypeSafeName
+    @CompileSafeName
     public int getGas() {
         return this.gas;
     }

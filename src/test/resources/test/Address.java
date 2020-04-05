@@ -15,7 +15,7 @@
  */
 package test;
 
-import am.ik.tsng.TypeSafeName;
+import am.ik.csng.CompileSafeName;
 
 public class Address {
 
@@ -25,9 +25,9 @@ public class Address {
 
 	private final String street;
 
-	public Address(@TypeSafeName(getter = false) Country country,
-			@TypeSafeName(getter = false) String street,
-			@TypeSafeName(getter = false) PhoneNumber phoneNumber) {
+	public Address(@CompileSafeName(getter = false) Country country,
+			@CompileSafeName(getter = false) String street,
+			@CompileSafeName(getter = false) PhoneNumber phoneNumber) {
 		this.country = country;
 		this.street = street;
 		this.phoneNumber = phoneNumber;
@@ -49,7 +49,7 @@ public class Address {
 
 		private final String name;
 
-		public Country(@TypeSafeName(getter = false) String name) {
+		public Country(@CompileSafeName(getter = false) String name) {
 			this.name = name;
 		}
 
@@ -62,7 +62,7 @@ public class Address {
 
 		private final String value;
 
-		public PhoneNumber(@TypeSafeName(getter = false) String value) {
+		public PhoneNumber(@CompileSafeName(getter = false) String value) {
 			this.value = value;
 		}
 

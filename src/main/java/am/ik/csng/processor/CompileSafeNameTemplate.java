@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package am.ik.tsng.processor;
+package am.ik.csng.processor;
 
-import static am.ik.tsng.processor.TypeSafeNameProcessor.*;
+import static am.ik.csng.processor.CompileSafeNameProcessor.*;
 
-final class TypeSafeNameTemplate {
+final class CompileSafeNameTemplate {
 	static String template(String target) {
 		final String lowerCamel = lowerCamel(target);
 		final String upperCamel = upperCamel(target);

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package am.ik.tsng.processor;
+package am.ik.csng.processor;
 
-import am.ik.tsng.TypeSafeName;
-import am.ik.tsng.TypeSafeProperties;
+import am.ik.csng.CompileSafeName;
+import am.ik.csng.CompileSafeProperties;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -33,14 +33,14 @@ import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.function.BiConsumer;
 
-import static am.ik.tsng.processor.TypeSafeNameTemplate.template;
+import static am.ik.csng.processor.CompileSafeNameTemplate.template;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 import static javax.lang.model.element.ElementKind.*;
 import static javax.lang.model.type.TypeKind.BOOLEAN;
 
-@SupportedAnnotationTypes({ "am.ik.tsng.TypeSafeName", "am.ik.tsng.TypeSafeProperties" })
-public class TypeSafeNameProcessor extends AbstractProcessor {
+@SupportedAnnotationTypes({ "am.ik.csng.CompileSafeName", "am.ik.csng.CompileSafeProperties" })
+public class CompileSafeNameProcessor extends AbstractProcessor {
 
 	@Override
 	public SourceVersion getSupportedSourceVersion() {
@@ -52,10 +52,10 @@ public class TypeSafeNameProcessor extends AbstractProcessor {
 			RoundEnvironment roundEnv) {
 		for (TypeElement typeElement : annotations) {
 			final Name qualifiedName = typeElement.getQualifiedName();
-			if (qualifiedName.contentEquals(TypeSafeName.class.getName())) {
+			if (qualifiedName.contentEquals(CompileSafeName.class.getName())) {
 				this.processTypeSafeName(typeElement, roundEnv);
 			}
-			if (qualifiedName.contentEquals(TypeSafeProperties.class.getName())) {
+			if (qualifiedName.contentEquals(CompileSafeProperties.class.getName())) {
 				this.processTypeSafeProperties(typeElement, roundEnv);
 			}
 		}
@@ -110,7 +110,7 @@ public class TypeSafeNameProcessor extends AbstractProcessor {
 			List<Pair<Element, Integer>> elements) {
 		this.writeFile(className + "Name", elements, (pair, metas) -> {
 			final Element element = pair.first();
-			final TypeSafeName typeSafeName = element.getAnnotation(TypeSafeName.class);
+			final CompileSafeName typeSafeName = element.getAnnotation(CompileSafeName.class);
 			final ElementKind kind = element.getKind();
 			final String name = element.getSimpleName().toString();
 			if (kind == METHOD) {
@@ -131,7 +131,7 @@ public class TypeSafeNameProcessor extends AbstractProcessor {
 		this.writeFile(className + "Properties", elements, (pair, metas) -> {
 			final Element element = pair.first();
 			final String name = element.getSimpleName().toString();
-			metas.put(name, TypeSafeNameTemplate
+			metas.put(name, CompileSafeNameTemplate
 					.template(element.getKind() == CLASS ? lowerCamel(name) : name));
 		});
 	}

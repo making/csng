@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package am.ik.tsng.processor;
+package am.ik.csng.processor;
 
 import com.google.testing.compile.JavaFileObjects;
 import org.assertj.core.api.Assertions;
@@ -21,12 +21,12 @@ import org.junit.jupiter.api.Test;
 
 import static com.google.testing.compile.JavaSourcesSubject.assertThat;
 
-class TypeSafeNameProcessorTest {
+class CompileSafeNameProcessorTest {
 
 	@Test
 	void processBean() {
 		assertThat(JavaFileObjects.forResource("test/CarBean.java"))
-				.processedWith(new TypeSafeNameProcessor()) //
+				.processedWith(new CompileSafeNameProcessor()) //
 				.compilesWithoutError().and()
 				.generatesSources(JavaFileObjects.forResource("test/_CarBeanName.java"));
 	}
@@ -34,7 +34,7 @@ class TypeSafeNameProcessorTest {
 	@Test
 	void processImmutable() {
 		assertThat(JavaFileObjects.forResource("test/Car.java"))
-				.processedWith(new TypeSafeNameProcessor()) //
+				.processedWith(new CompileSafeNameProcessor()) //
 				.compilesWithoutError().and()
 				.generatesSources(JavaFileObjects.forResource("test/_CarName.java"));
 	}
@@ -42,7 +42,7 @@ class TypeSafeNameProcessorTest {
 	@Test
 	void processFiled() {
 		assertThat(JavaFileObjects.forResource("test/CarField.java"))
-				.processedWith(new TypeSafeNameProcessor()) //
+				.processedWith(new CompileSafeNameProcessor()) //
 				.compilesWithoutError().and()
 				.generatesSources(JavaFileObjects.forResource("test/_CarFieldName.java"));
 	}
@@ -50,7 +50,7 @@ class TypeSafeNameProcessorTest {
 	@Test
 	void processConstructorArguments() {
 		assertThat(JavaFileObjects.forResource("test/Car2.java"))
-				.processedWith(new TypeSafeNameProcessor()) //
+				.processedWith(new CompileSafeNameProcessor()) //
 				.compilesWithoutError().and().generatesSources(
 						JavaFileObjects.forResource("test/_Car2Properties.java"));
 	}
@@ -58,7 +58,7 @@ class TypeSafeNameProcessorTest {
 	@Test
 	void processMethodArguments() {
 		assertThat(JavaFileObjects.forResource("test/UserService.java"))
-				.processedWith(new TypeSafeNameProcessor()) //
+				.processedWith(new CompileSafeNameProcessor()) //
 				.compilesWithoutError().and().generatesSources(JavaFileObjects
 						.forResource("test/_UserServiceCreateUserProperties.java"));
 	}
@@ -66,7 +66,7 @@ class TypeSafeNameProcessorTest {
 	@Test
 	void processInnerClass() {
 		assertThat(JavaFileObjects.forResource("test/Address.java"))
-				.processedWith(new TypeSafeNameProcessor()) //
+				.processedWith(new CompileSafeNameProcessor()) //
 				.compilesWithoutError().and()
 				.generatesSources(JavaFileObjects.forResource("test/_AddressName.java"),
 						JavaFileObjects.forResource("test/_Address_CountryName.java"),
@@ -76,16 +76,16 @@ class TypeSafeNameProcessorTest {
 
 	@Test
 	void testBeanLowerCamel() {
-		Assertions.assertThat(TypeSafeNameProcessor.lowerCamel("Name")).isEqualTo("name");
-		Assertions.assertThat(TypeSafeNameProcessor.lowerCamel("NAme")).isEqualTo("NAme");
-		Assertions.assertThat(TypeSafeNameProcessor.lowerCamel("NAME")).isEqualTo("NAME");
+		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("Name")).isEqualTo("name");
+		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("NAme")).isEqualTo("NAme");
+		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("NAME")).isEqualTo("NAME");
 	}
 
 	@Test
 	void testBeanUpperCamel() {
-		Assertions.assertThat(TypeSafeNameProcessor.upperCamel("name")).isEqualTo("Name");
-		Assertions.assertThat(TypeSafeNameProcessor.upperCamel("NAme")).isEqualTo("NAme");
-		Assertions.assertThat(TypeSafeNameProcessor.upperCamel("NAME")).isEqualTo("NAME");
+		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("name")).isEqualTo("Name");
+		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("NAme")).isEqualTo("NAme");
+		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("NAME")).isEqualTo("NAME");
 	}
 
 }
