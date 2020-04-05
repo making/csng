@@ -21,7 +21,7 @@ public class CarField {
 	final String name;
 	final int gas;
 
-	public CarField(@CompileSafeName(field = true) String name, @CompileSafeName(field = true) int gas) {
+	public CarField(@CompileSafeName String name, @CompileSafeName int gas) {
 		this.name = name;
 		this.gas = gas;
 	}
