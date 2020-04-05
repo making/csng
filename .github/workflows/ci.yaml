@@ -61,41 +61,16 @@ jobs:
           GPG_KEYNAME: ${{ secrets.GPG_KEYNAME }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
-          GPG_DIR: ${{ secrets.GPG_DIR }}
         run: |
           set -e
           docker run \
             --rm \
-            -v /tmp:/tmp \
+            -e SONATYPE_USERNAME=${SONATYPE_USERNAME} \
+            -e SONATYPE_PASSWORD=${SONATYPE_PASSWORD} \
+            -e GPG_KEYNAME=${GPG_KEYNAME} \
+            -e GPG_PASSPHRASE=${GPG_PASSPHRASE} \
             -e ENCRYPTION_PASSWORD=${ENCRYPTION_PASSWORD} \
-            making/encrypted-gpg /tmp
-
-          cat > settings.xml <<EOF
-          <settings>
-            <servers>
-              <server>
-                 <id>sonatype-releases</id>
-                 <username>${SONATYPE_USERNAME}</username>
-                 <password>${SONATYPE_PASSWORD}</password>
-              </server>
-            </servers>
-          </settings>
-          EOF
-
-          ./mvnw javadoc:jar \
-              source:jar \
-              package \
-              org.apache.maven.plugins:maven-gpg-plugin:1.6:sign \
-              org.sonatype.plugins:nexus-staging-maven-plugin:1.6.8:deploy \
-              -s settings.xml \
-              -Dgpg.executable=gpg \
-              -Dgpg.keyname=${GPG_KEYNAME} \
-              -Dgpg.passphrase=${GPG_PASSPHRASE} \
-              -Dgpg.defaultKeyring=false \
-              -Dgpg.publicKeyring=/tmp/pubring.gpg \
-              -Dgpg.secretKeyring=/tmp/secring.gpg \
-              -DserverId=sonatype-releases \
-              -DnexusUrl=https://oss.sonatype.org \
-              -DautoReleaseAfterClose=true \
-              -DaltDeploymentRepository=sonatype-releases::default::https://oss.sonatype.org/service/local/staging/deploy/maven2 \
-              -DskipTests=true
+            -v ~/.m2:/root/.m2 \
+            -v "$PWD":/workspace \
+            -w /workspace \
+            making/deploy-sonatype
