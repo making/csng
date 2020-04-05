@@ -39,7 +39,8 @@ import static java.util.stream.Collectors.toList;
 import static javax.lang.model.element.ElementKind.*;
 import static javax.lang.model.type.TypeKind.BOOLEAN;
 
-@SupportedAnnotationTypes({ "am.ik.csng.CompileSafeName", "am.ik.csng.CompileSafeProperties" })
+@SupportedAnnotationTypes({ "am.ik.csng.CompileSafeName",
+		"am.ik.csng.CompileSafeProperties" })
 public class CompileSafeNameProcessor extends AbstractProcessor {
 
 	@Override
@@ -110,7 +111,8 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 			List<Pair<Element, Integer>> elements) {
 		this.writeFile(className + "Name", elements, (pair, metas) -> {
 			final Element element = pair.first();
-			final CompileSafeName typeSafeName = element.getAnnotation(CompileSafeName.class);
+			final CompileSafeName typeSafeName = element
+					.getAnnotation(CompileSafeName.class);
 			final ElementKind kind = element.getKind();
 			final String name = element.getSimpleName().toString();
 			if (kind == METHOD) {

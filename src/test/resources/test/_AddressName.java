@@ -22,16 +22,18 @@ public class _AddressName {
         public static final String LOWER_UNDERSCORE = "country";
         public static final String UPPER_UNDERSCORE = "COUNTRY";
     }
-	public static final class Street {
-		public static final String LOWER_CAMEL = "street";
-		public static final String UPPER_CAMEL = "Street";
-		public static final String LOWER_UNDERSCORE = "street";
-		public static final String UPPER_UNDERSCORE = "STREET";
-	}
-	public static final class PhoneNumber {
-		public static final String LOWER_CAMEL = "phoneNumber";
-		public static final String UPPER_CAMEL = "PhoneNumber";
-		public static final String LOWER_UNDERSCORE = "phone_number";
-		public static final String UPPER_UNDERSCORE = "PHONE_NUMBER";
-	}
+
+    public static final class PhoneNumber {
+        public static final String LOWER_CAMEL = "phoneNumber";
+        public static final String UPPER_CAMEL = "PhoneNumber";
+        public static final String LOWER_UNDERSCORE = "phone_number";
+        public static final String UPPER_UNDERSCORE = "PHONE_NUMBER";
+    }
+
+    public static final class Street {
+        public static final String LOWER_CAMEL = "street";
+        public static final String UPPER_CAMEL = "Street";
+        public static final String LOWER_UNDERSCORE = "street";
+        public static final String UPPER_UNDERSCORE = "STREET";
+    }
 }

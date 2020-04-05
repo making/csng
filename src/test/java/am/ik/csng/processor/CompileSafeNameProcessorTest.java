@@ -40,14 +40,6 @@ class CompileSafeNameProcessorTest {
 	}
 
 	@Test
-	void processFiled() {
-		assertThat(JavaFileObjects.forResource("test/CarField.java"))
-				.processedWith(new CompileSafeNameProcessor()) //
-				.compilesWithoutError().and()
-				.generatesSources(JavaFileObjects.forResource("test/_CarFieldName.java"));
-	}
-
-	@Test
 	void processConstructorArguments() {
 		assertThat(JavaFileObjects.forResource("test/Car2.java"))
 				.processedWith(new CompileSafeNameProcessor()) //
@@ -76,16 +68,22 @@ class CompileSafeNameProcessorTest {
 
 	@Test
 	void testBeanLowerCamel() {
-		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("Name")).isEqualTo("name");
-		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("NAme")).isEqualTo("NAme");
-		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("NAME")).isEqualTo("NAME");
+		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("Name"))
+				.isEqualTo("name");
+		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("NAme"))
+				.isEqualTo("NAme");
+		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("NAME"))
+				.isEqualTo("NAME");
 	}
 
 	@Test
 	void testBeanUpperCamel() {
-		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("name")).isEqualTo("Name");
-		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("NAme")).isEqualTo("NAme");
-		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("NAME")).isEqualTo("NAME");
+		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("name"))
+				.isEqualTo("Name");
+		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("NAme"))
+				.isEqualTo("NAme");
+		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("NAME"))
+				.isEqualTo("NAME");
 	}
 
 }
