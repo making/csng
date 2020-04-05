@@ -40,14 +40,6 @@ class CompileSafeNameProcessorTest {
 	}
 
 	@Test
-	void processFiled() {
-		assertThat(JavaFileObjects.forResource("test/CarField.java"))
-				.processedWith(new CompileSafeNameProcessor()) //
-				.compilesWithoutError().and()
-				.generatesSources(JavaFileObjects.forResource("test/_CarFieldName.java"));
-	}
-
-	@Test
 	void processConstructorArguments() {
 		assertThat(JavaFileObjects.forResource("test/Car2.java"))
 				.processedWith(new CompileSafeNameProcessor()) //

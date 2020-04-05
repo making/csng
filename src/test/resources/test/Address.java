@@ -19,55 +19,60 @@ import am.ik.csng.CompileSafeName;
 
 public class Address {
 
-	private final Country country;
+    private final Country country;
 
-	private final PhoneNumber phoneNumber;
+    private final PhoneNumber phoneNumber;
 
-	private final String street;
+    private final String street;
 
-	public Address(@CompileSafeName(getter = false) Country country,
-			@CompileSafeName(getter = false) String street,
-			@CompileSafeName(getter = false) PhoneNumber phoneNumber) {
-		this.country = country;
-		this.street = street;
-		this.phoneNumber = phoneNumber;
-	}
+    public Address(Country country,
+                   String street,
+                   PhoneNumber phoneNumber) {
+        this.country = country;
+        this.street = street;
+        this.phoneNumber = phoneNumber;
+    }
 
-	public Country country() {
-		return this.country;
-	}
+    @CompileSafeName(getter = false)
+    public Country country() {
+        return this.country;
+    }
 
-	public PhoneNumber phoneNumber() {
-		return this.phoneNumber;
-	}
+    @CompileSafeName(getter = false)
+    public PhoneNumber phoneNumber() {
+        return this.phoneNumber;
+    }
 
-	public String street() {
-		return this.street;
-	}
+    @CompileSafeName(getter = false)
+    public String street() {
+        return this.street;
+    }
 
-	public static class Country {
+    public static class Country {
 
-		private final String name;
+        private final String name;
 
-		public Country(@CompileSafeName(getter = false) String name) {
-			this.name = name;
-		}
+        public Country(String name) {
+            this.name = name;
+        }
 
-		public String name() {
-			return this.name;
-		}
-	}
+        @CompileSafeName(getter = false)
+        public String name() {
+            return this.name;
+        }
+    }
 
-	public static class PhoneNumber {
+    public static class PhoneNumber {
 
-		private final String value;
+        private final String value;
 
-		public PhoneNumber(@CompileSafeName(getter = false) String value) {
-			this.value = value;
-		}
+        public PhoneNumber(String value) {
+            this.value = value;
+        }
 
-		public String value() {
-			return this.value;
-		}
-	}
+        @CompileSafeName(getter = false)
+        public String value() {
+            return this.value;
+        }
+    }
 }
