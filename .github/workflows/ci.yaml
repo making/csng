@@ -1,0 +1,51 @@
+name: CI
+on:
+  push:
+    branches:
+      - develop
+      - master
+  pull_request:
+    branches:
+      - develop
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [8.x, 11.x, 14.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Cache Maven
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Unit Tests
+        if: (github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/master') || !startsWith(env.JAVA_HOME, '/opt/hostedtoolcache/jdk/8')
+        run: mvn -V test
+      - name: Deploy to sonatype-snapshot
+        if: github.ref == 'refs/heads/develop' && startsWith(env.JAVA_HOME, '/opt/hostedtoolcache/jdk/8')
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        run: |
+          set -e
+          cat > settings.xml <<EOF
+          <settings>
+            <servers>
+              <server>
+                 <id>sonatype-snapshots</id>
+                 <username>${SONATYPE_USERNAME}</username>
+                 <password>${SONATYPE_PASSWORD}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+          ./mvnw -V deploy -s settings.xml -DskipTests=true -DserverId=sonatype-snapshots
