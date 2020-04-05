@@ -30,7 +30,7 @@ jobs:
       - name: Unit Tests
         if: (github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/master') || !startsWith(env.JAVA_HOME, '/opt/hostedtoolcache/jdk/8')
         run: mvn -V test
-      - name: Deploy to sonatype-snapshot
+      - name: Deploy to sonatype-snapshots
         if: github.ref == 'refs/heads/develop' && startsWith(env.JAVA_HOME, '/opt/hostedtoolcache/jdk/8')
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
@@ -49,3 +49,29 @@ jobs:
           </settings>
           EOF
           ./mvnw -V deploy -s settings.xml -DskipTests=true -DserverId=sonatype-snapshots
+      - name: Deploy to sonatype-releases
+        if: github.ref == 'refs/heads/master' && startsWith(env.JAVA_HOME, '/opt/hostedtoolcache/jdk/8')
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_KEYNAME: ${{ secrets.GPG_KEYNAME }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
+          GPG_DIR: ${{ secrets.GPG_DIR }}
+        run: |
+          set -e
+          git clone https://github.com/maki-home/encrypted-gpg.git
+          mkdir -p ~/.gnupg
+          encrypted-gpg/deceypt-pgp.sh .
+
+          cat > settings.xml <<EOF
+          <settings>
+            <servers>
+              <server>
+                 <id>sonatype-releases</id>
+                 <username>${SONATYPE_USERNAME}</username>
+                 <password>${SONATYPE_PASSWORD}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
