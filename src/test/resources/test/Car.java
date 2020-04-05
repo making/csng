@@ -15,7 +15,7 @@
  */
 package test;
 
-import am.ik.tsng.TypeSafeName;
+import am.ik.csng.CompileSafeName;
 
 public class Car {
 	private final String name;
@@ -26,12 +26,12 @@ public class Car {
 		this.gas = gas;
 	}
 
-	@TypeSafeName(getter = false)
+	@CompileSafeName(getter = false)
 	public String name() {
 		return this.name;
 	}
 
-	@TypeSafeName(getter = false)
+	@CompileSafeName(getter = false)
 	public int gas() {
 		return this.gas;
 	}
