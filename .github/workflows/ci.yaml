@@ -48,7 +48,11 @@ jobs:
             </servers>
           </settings>
           EOF
-          ./mvnw -V deploy -s settings.xml -DskipTests=true -DserverId=sonatype-snapshots
+
+          CURRENT_VERSION=$(grep '<version>' pom.xml | head -n 1 | sed -e 's|<version>||g' -e 's|</version>||g' -e 's| ||g' |  tr -d '\t')
+          if [ "${CURRENT_VERSION}" = "$(echo ${CURRENT_VERSION} | grep "\-SNAPSHOT")" ];then
+            ./mvnw -V deploy -s settings.xml -DskipTests=true -DserverId=sonatype-snapshots
+          fi
       - name: Deploy to sonatype-releases
         if: github.ref == 'refs/heads/master' && startsWith(env.JAVA_HOME, '/opt/hostedtoolcache/jdk/8')
         env:
@@ -77,3 +81,21 @@ jobs:
             </servers>
           </settings>
           EOF
+
+          ./mvnw javadoc:jar \
+              source:jar \
+              package \
+              org.apache.maven.plugins:maven-gpg-plugin:1.6:sign \
+              org.sonatype.plugins:nexus-staging-maven-plugin:1.6.8:deploy \
+              -s settings.xml \
+              -Dgpg.executable=gpg \
+              -Dgpg.keyname=${GPG_KEYNAME} \
+              -Dgpg.passphrase=${GPG_PASSPHRASE} \
+              -Dgpg.defaultKeyring=false \
+              -Dgpg.publicKeyring=/tmp/pubring.gpg \
+              -Dgpg.secretKeyring=/tmp/secring.gpg \
+              -DserverId=sonatype-releases \
+              -DnexusUrl=https://oss.sonatype.org \
+              -DautoReleaseAfterClose=true \
+              -DaltDeploymentRepository=sonatype-releases::default::https://oss.sonatype.org/service/local/staging/deploy/maven2 \
+              -DskipTests=true
