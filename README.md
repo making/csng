@@ -26,11 +26,6 @@ public class CarBean {
     private String name;
     private int gas;
 
-    public CarBean(String name, int gas) {
-        this.name = name;
-        this.gas = gas;
-    }
-
     @CompileSafeName
     public String getName() {
         return this.name;

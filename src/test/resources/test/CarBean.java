@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *		 http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,11 +20,6 @@ import am.ik.csng.CompileSafeName;
 public class CarBean {
     private String name;
     private int gas;
-
-    public CarBean(String name, int gas) {
-        this.name = name;
-        this.gas = gas;
-    }
 
     @CompileSafeName
     public String getName() {
