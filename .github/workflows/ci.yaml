@@ -60,9 +60,11 @@ jobs:
           GPG_DIR: ${{ secrets.GPG_DIR }}
         run: |
           set -e
-          git clone https://github.com/maki-home/encrypted-gpg.git
-          mkdir -p ~/.gnupg
-          encrypted-gpg/deceypt-pgp.sh .
+          docker run \
+            --rm \
+            -v /tmp:/tmp \
+            -e ENCRYPTION_PASSWORD=${ENCRYPTION_PASSWORD} \
+            making/encrypted-gpg /tmp
 
           cat > settings.xml <<EOF
           <settings>
