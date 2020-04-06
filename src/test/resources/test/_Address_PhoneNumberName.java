@@ -15,7 +15,7 @@
  */
 package test;
 
-public class _Address_PhoneNumberName {
+public final class _Address_PhoneNumberName {
     public static final String LOWER_CAMEL = "phoneNumber";
     public static final String UPPER_CAMEL = "PhoneNumber";
     public static final String LOWER_UNDERSCORE = "phone_number";

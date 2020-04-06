@@ -140,7 +140,7 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 				}
 
 				out.println("// Generated at " + OffsetDateTime.now());
-				out.print("public class ");
+				out.print("public final class ");
 				out.print(metaSimpleClassName);
 				out.println(" {");
 				out.println(templateClass(simpleClassName));

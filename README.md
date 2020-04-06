@@ -53,7 +53,7 @@ generates
 ```java
 package test;
 
-public class _CarBeanName {
+public final class _CarBeanName {
 	public static final String LOWER_CAMEL = "carBean";
 	public static final String UPPER_CAMEL = "CarBean";
 	public static final String LOWER_UNDERSCORE = "car_bean";
@@ -108,7 +108,7 @@ generates
 ```java
 package test;
 
-public class _CarProperties {
+public final class _CarProperties {
 	public static final String LOWER_CAMEL = "Car";
 	public static final String UPPER_CAMEL = "Car";
 	public static final String LOWER_UNDERSCORE = "Car";

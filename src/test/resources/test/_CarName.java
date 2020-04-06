@@ -15,7 +15,7 @@
  */
 package test;
 
-public class _CarName {
+public final class _CarName {
 	public static final String LOWER_CAMEL = "car";
 	public static final String UPPER_CAMEL = "Car";
 	public static final String LOWER_UNDERSCORE = "car";
