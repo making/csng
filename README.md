@@ -8,7 +8,7 @@
 <dependency>
     <groupId>am.ik.csng</groupId>
     <artifactId>csng</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
     <optional>true</optional>
 </dependency>
 ```
@@ -52,6 +52,11 @@ generates
 package test;
 
 public class _CarBeanName {
+    public static final String LOWER_CAMEL = "carBean";
+    public static final String UPPER_CAMEL = "CarBean";
+    public static final String LOWER_UNDERSCORE = "car_bean";
+    public static final String UPPER_UNDERSCORE = "CAR_BEAN";
+
     public static final class Name {
         public static final String LOWER_CAMEL = "name";
         public static final String UPPER_CAMEL = "Name";
@@ -66,6 +71,7 @@ public class _CarBeanName {
         public static final String UPPER_UNDERSCORE = "GAS";
     }
 }
+
 ```
 
 ### Using non-getters
@@ -102,6 +108,11 @@ generates
 package test;
 
 public class _CarName {
+	public static final String LOWER_CAMEL = "car";
+	public static final String UPPER_CAMEL = "Car";
+	public static final String LOWER_UNDERSCORE = "car";
+	public static final String UPPER_UNDERSCORE = "CAR";
+
 	public static final class Name {
 		public static final String LOWER_CAMEL = "name";
 		public static final String UPPER_CAMEL = "Name";
@@ -151,6 +162,11 @@ generates
 package test;
 
 public class _Car2Properties {
+	public static final String LOWER_CAMEL = "car2";
+	public static final String UPPER_CAMEL = "Car2";
+	public static final String LOWER_UNDERSCORE = "car2";
+	public static final String UPPER_UNDERSCORE = "CAR2";
+
 	public static final class Name {
 		public static final String LOWER_CAMEL = "name";
 		public static final String UPPER_CAMEL = "Name";
