@@ -18,21 +18,21 @@ package test;
 import am.ik.csng.CompileSafeName;
 
 public class Car {
-	private final String name;
-	private final int gas;
+    @CompileSafeName
+    private final String name;
+    @CompileSafeName
+    private final int gas;
 
-	public Car(String name, int gas) {
-		this.name = name;
-		this.gas = gas;
-	}
+    public Car(String name, int gas) {
+        this.name = name;
+        this.gas = gas;
+    }
 
-	@CompileSafeName(getter = false)
-	public String name() {
-		return this.name;
-	}
+    public String name() {
+        return this.name;
+    }
 
-	@CompileSafeName(getter = false)
-	public int gas() {
-		return this.gas;
-	}
+    public int gas() {
+        return this.gas;
+    }
 }

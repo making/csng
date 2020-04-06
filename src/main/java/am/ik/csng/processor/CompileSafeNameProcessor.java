@@ -34,10 +34,9 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 import static am.ik.csng.processor.CompileSafeNameTemplate.templateTarget;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.toList;
-import static javax.lang.model.element.ElementKind.*;
-import static javax.lang.model.type.TypeKind.BOOLEAN;
+import static java.util.stream.Collectors.*;
+import static javax.lang.model.element.ElementKind.CLASS;
+import static javax.lang.model.element.ElementKind.METHOD;
 
 @SupportedAnnotationTypes({ "am.ik.csng.CompileSafeName",
 		"am.ik.csng.CompileSafeProperties" })
@@ -71,16 +70,8 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 				.filter(x -> !(x instanceof ExecutableElement)
 						|| ((ExecutableElement) x).getTypeParameters().isEmpty())
 				.map(x -> new Pair<Element, Integer>(x, -1)).collect(groupingBy(k -> {
-					String className = "****";
 					final Element element = k.first();
-					if (element instanceof VariableElement) {
-						className = element.getEnclosingElement().getEnclosingElement()
-								.toString();
-					}
-					else if (element instanceof ExecutableElement) {
-						className = element.getEnclosingElement().toString();
-					}
-					return className;
+					return element.getEnclosingElement().toString();
 				}, toList()));
 		if (elementsMap.isEmpty()) {
 			return;
@@ -113,18 +104,8 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 			final Element element = pair.first();
 			final CompileSafeName typeSafeName = element
 					.getAnnotation(CompileSafeName.class);
-			final ElementKind kind = element.getKind();
 			final String name = element.getSimpleName().toString();
-			if (kind == METHOD) {
-				final TypeMirror type = ((ExecutableElement) element).getReturnType();
-				final String target = lowerCamel(typeSafeName.getter()
-						? name.replaceFirst("^" + getterPrefix(type), "")
-						: name);
-				metas.put(target, templateTarget(target));
-			}
-			else if (kind == PARAMETER) {
-				metas.put(name, templateTarget(name));
-			}
+			metas.put(name, templateTarget(name));
 		});
 	}
 
@@ -196,10 +177,6 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 			}
 		}
 		return -1;
-	}
-
-	static String getterPrefix(TypeMirror type) {
-		return type.getKind() == BOOLEAN ? "is" : "get";
 	}
 
 	static String lowerCamel(String s) {
