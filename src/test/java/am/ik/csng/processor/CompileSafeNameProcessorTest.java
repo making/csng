@@ -40,19 +40,19 @@ class CompileSafeNameProcessorTest {
 	}
 
 	@Test
-	void processConstructorArguments() {
+	void processConstructorParameters() {
 		assertThat(JavaFileObjects.forResource("test/Car2.java"))
 				.processedWith(new CompileSafeNameProcessor()) //
 				.compilesWithoutError().and().generatesSources(
-						JavaFileObjects.forResource("test/_Car2Properties.java"));
+						JavaFileObjects.forResource("test/_Car2Parameters.java"));
 	}
 
 	@Test
-	void processMethodArguments() {
+	void processMethodParameters() {
 		assertThat(JavaFileObjects.forResource("test/UserService.java"))
 				.processedWith(new CompileSafeNameProcessor()) //
 				.compilesWithoutError().and().generatesSources(JavaFileObjects
-						.forResource("test/_UserServiceCreateUserProperties.java"));
+						.forResource("test/_UserServiceCreateUserParameters.java"));
 	}
 
 	@Test

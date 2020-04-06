@@ -15,7 +15,7 @@
  */
 package test;
 
-public final class _Car2Properties {
+public final class _Car2Parameters {
 	public static final String LOWER_CAMEL = "car2";
 	public static final String UPPER_CAMEL = "Car2";
 	public static final String LOWER_UNDERSCORE = "car2";

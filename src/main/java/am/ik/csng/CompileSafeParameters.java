@@ -22,5 +22,5 @@ import java.lang.annotation.Target;
 
 @Target({ ElementType.CONSTRUCTOR, ElementType.METHOD })
 @Retention(RetentionPolicy.SOURCE)
-public @interface CompileSafeProperties {
+public @interface CompileSafeParameters {
 }

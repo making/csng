@@ -10,7 +10,7 @@ CSNG is an annotation processor that simply generates property names as constant
 <dependency>
 	<groupId>am.ik.csng</groupId>
 	<artifactId>csng</artifactId>
-	<version>0.3.0</version>
+	<version>0.4.0</version>
 	<optional>true</optional>
 </dependency>
 ```
@@ -81,13 +81,13 @@ public final class _CarBeanName {
 ```java
 package test;
 
-import am.ik.csng.CompileSafeProperties;
+import am.ik.csng.CompileSafeParameters;
 
 public class Car {
 	private final String name;
 	private final int gas;
 
-	@CompileSafeProperties
+	@CompileSafeParameters
 	public Car(String name, int gas) {
 		this.name = name;
 		this.gas = gas;
@@ -108,7 +108,7 @@ generates
 ```java
 package test;
 
-public final class _CarProperties {
+public final class _CarParameters {
 	public static final String LOWER_CAMEL = "Car";
 	public static final String UPPER_CAMEL = "Car";
 	public static final String LOWER_UNDERSCORE = "Car";
