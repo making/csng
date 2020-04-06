@@ -15,7 +15,7 @@
  */
 package test;
 
-public final class _UserServiceCreateUserProperties {
+public final class _UserServiceCreateUserParameters {
     public static final String LOWER_CAMEL = "userServiceCreateUser";
     public static final String UPPER_CAMEL = "UserServiceCreateUser";
     public static final String LOWER_UNDERSCORE = "user_service_create_user";

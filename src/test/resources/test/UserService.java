@@ -15,10 +15,10 @@
  */
 package test;
 
-import am.ik.csng.CompileSafeProperties;
+import am.ik.csng.CompileSafeParameters;
 
 public class UserService {
-	@CompileSafeProperties
+	@CompileSafeParameters
 	public User createUser(String email, String name) {
 		return new User(email, name);
 	}

@@ -16,7 +16,7 @@
 package am.ik.csng.processor;
 
 import am.ik.csng.CompileSafeName;
-import am.ik.csng.CompileSafeProperties;
+import am.ik.csng.CompileSafeParameters;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -37,7 +37,7 @@ import static javax.lang.model.element.ElementKind.CLASS;
 import static javax.lang.model.element.ElementKind.METHOD;
 
 @SupportedAnnotationTypes({ "am.ik.csng.CompileSafeName",
-		"am.ik.csng.CompileSafeProperties" })
+		"am.ik.csng.CompileSafeParameters" })
 public class CompileSafeNameProcessor extends AbstractProcessor {
 
 	@Override
@@ -53,8 +53,8 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 			if (qualifiedName.contentEquals(CompileSafeName.class.getName())) {
 				this.processTypeSafeName(typeElement, roundEnv);
 			}
-			if (qualifiedName.contentEquals(CompileSafeProperties.class.getName())) {
-				this.processTypeSafeProperties(typeElement, roundEnv);
+			if (qualifiedName.contentEquals(CompileSafeParameters.class.getName())) {
+				this.processTypeSafeParameters(typeElement, roundEnv);
 			}
 		}
 		return true;
@@ -77,7 +77,7 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 		elementsMap.forEach(this::writeTypeSafeNameFile);
 	}
 
-	private void processTypeSafeProperties(TypeElement typeElement,
+	private void processTypeSafeParameters(TypeElement typeElement,
 			RoundEnvironment roundEnv) {
 		final Set<? extends Element> elementsAnnotatedWith = roundEnv
 				.getElementsAnnotatedWith(typeElement);
@@ -92,7 +92,7 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 			}
 			final List<Pair<Element, Integer>> pairs = parameters.stream()
 					.map(x -> new Pair<>(x, parameters.indexOf(x))).collect(toList());
-			this.writeTypeSafePropertiesFile(className, pairs);
+			this.writeTypeSafeParametersFile(className, pairs);
 		}
 	}
 
@@ -107,9 +107,9 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 		});
 	}
 
-	private void writeTypeSafePropertiesFile(String className,
+	private void writeTypeSafeParametersFile(String className,
 			List<Pair<Element, Integer>> elements) {
-		this.writeFile(className, "Properties", elements, (pair, metas) -> {
+		this.writeFile(className, "Parameters", elements, (pair, metas) -> {
 			final Element element = pair.first();
 			final String name = element.getSimpleName().toString();
 			metas.put(name,

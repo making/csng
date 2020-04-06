@@ -6,18 +6,26 @@ CSNG is an annotation processor that simply generates property names as constant
 
 ## How to use
 
+For Maven:
+
 ```xml
 <dependency>
-	<groupId>am.ik.csng</groupId>
-	<artifactId>csng</artifactId>
-	<version>0.3.0</version>
-	<optional>true</optional>
+    <groupId>am.ik.csng</groupId>
+    <artifactId>csng</artifactId>
+    <version>0.4.0</version>
+    <optional>true</optional>
 </dependency>
+```
+
+For Gradle:
+
+```
+annotationProcessor 'am.ik.csng:csng:0.4.0'
 ```
 
 ## Examples
 
-### Java Beans (Using getters)
+### Java Beans
 
 ```java
 package test;
@@ -25,26 +33,26 @@ package test;
 import am.ik.csng.CompileSafeName;
 
 public class CarBean {
-	@CompileSafeName
-	private String name;
-	@CompileSafeName
-	private int gas;
+    @CompileSafeName
+    private String name;
+    @CompileSafeName
+    private int gas;
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public int getGas() {
-		return this.gas;
-	}
+    public int getGas() {
+        return this.gas;
+    }
 
-	public void setGas(int gas) {
-		this.gas = gas;
-	}
+    public void setGas(int gas) {
+        this.gas = gas;
+    }
 }
 ```
 
@@ -54,24 +62,24 @@ generates
 package test;
 
 public final class _CarBeanName {
-	public static final String LOWER_CAMEL = "carBean";
-	public static final String UPPER_CAMEL = "CarBean";
-	public static final String LOWER_UNDERSCORE = "car_bean";
-	public static final String UPPER_UNDERSCORE = "CAR_BEAN";
+    public static final String LOWER_CAMEL = "carBean";
+    public static final String UPPER_CAMEL = "CarBean";
+    public static final String LOWER_UNDERSCORE = "car_bean";
+    public static final String UPPER_UNDERSCORE = "CAR_BEAN";
 
-	public static final class Name {
-		public static final String LOWER_CAMEL = "name";
-		public static final String UPPER_CAMEL = "Name";
-		public static final String LOWER_UNDERSCORE = "name";
-		public static final String UPPER_UNDERSCORE = "NAME";
-	}
+    public static final class Name {
+        public static final String LOWER_CAMEL = "name";
+        public static final String UPPER_CAMEL = "Name";
+        public static final String LOWER_UNDERSCORE = "name";
+        public static final String UPPER_UNDERSCORE = "NAME";
+    }
 
-	public static final class Gas {
-		public static final String LOWER_CAMEL = "gas";
-		public static final String UPPER_CAMEL = "Gas";
-		public static final String LOWER_UNDERSCORE = "gas";
-		public static final String UPPER_UNDERSCORE = "GAS";
-	}
+    public static final class Gas {
+        public static final String LOWER_CAMEL = "gas";
+        public static final String UPPER_CAMEL = "Gas";
+        public static final String LOWER_UNDERSCORE = "gas";
+        public static final String UPPER_UNDERSCORE = "GAS";
+    }
 }
 
 ```
@@ -81,25 +89,25 @@ public final class _CarBeanName {
 ```java
 package test;
 
-import am.ik.csng.CompileSafeProperties;
+import am.ik.csng.CompileSafeParameters;
 
 public class Car {
-	private final String name;
-	private final int gas;
+    private final String name;
+    private final int gas;
 
-	@CompileSafeProperties
-	public Car(String name, int gas) {
-		this.name = name;
-		this.gas = gas;
-	}
+    @CompileSafeParameters
+    public Car(String name, int gas) {
+        this.name = name;
+        this.gas = gas;
+    }
 
-	public String name() {
-		return this.name;
-	}
+    public String name() {
+        return this.name;
+    }
 
-	public int gas() {
-		return this.gas;
-	}
+    public int gas() {
+        return this.gas;
+    }
 }
 ```
 
@@ -108,25 +116,25 @@ generates
 ```java
 package test;
 
-public final class _CarProperties {
-	public static final String LOWER_CAMEL = "Car";
-	public static final String UPPER_CAMEL = "Car";
-	public static final String LOWER_UNDERSCORE = "Car";
-	public static final String UPPER_UNDERSCORE = "Car";
+public final class _CarParameters {
+    public static final String LOWER_CAMEL = "Car";
+    public static final String UPPER_CAMEL = "Car";
+    public static final String LOWER_UNDERSCORE = "Car";
+    public static final String UPPER_UNDERSCORE = "Car";
 
-	public static final class Name {
-		public static final String LOWER_CAMEL = "name";
-		public static final String UPPER_CAMEL = "Name";
-		public static final String LOWER_UNDERSCORE = "name";
-		public static final String UPPER_UNDERSCORE = "NAME";
-	}
+    public static final class Name {
+        public static final String LOWER_CAMEL = "name";
+        public static final String UPPER_CAMEL = "Name";
+        public static final String LOWER_UNDERSCORE = "name";
+        public static final String UPPER_UNDERSCORE = "NAME";
+    }
 
-	public static final class Gas {
-		public static final String LOWER_CAMEL = "gas";
-		public static final String UPPER_CAMEL = "Gas";
-		public static final String LOWER_UNDERSCORE = "gas";
-		public static final String UPPER_UNDERSCORE = "GAS";
-	}
+    public static final class Gas {
+        public static final String LOWER_CAMEL = "gas";
+        public static final String UPPER_CAMEL = "Gas";
+        public static final String LOWER_UNDERSCORE = "gas";
+        public static final String UPPER_UNDERSCORE = "GAS";
+    }
 }
 ```
 

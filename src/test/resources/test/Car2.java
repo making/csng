@@ -15,13 +15,13 @@
  */
 package test;
 
-import am.ik.csng.CompileSafeProperties;
+import am.ik.csng.CompileSafeParameters;
 
 public class Car2 {
 	private final String name;
 	private final int gas;
 
-	@CompileSafeProperties
+	@CompileSafeParameters
 	public Car2(String name, int gas) {
 		this.name = name;
 		this.gas = gas;
