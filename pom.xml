@@ -6,7 +6,7 @@
 
     <groupId>am.ik.csng</groupId>
     <artifactId>csng</artifactId>
-    <version>0.4.0</version>
+    <version>0.4.1-SNAPSHOT</version>
 
     <name>csng</name>
     <description>Compile Safe Name Generator</description>
