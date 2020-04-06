@@ -8,7 +8,7 @@
 <dependency>
     <groupId>am.ik.csng</groupId>
     <artifactId>csng</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <optional>true</optional>
 </dependency>
 ```
