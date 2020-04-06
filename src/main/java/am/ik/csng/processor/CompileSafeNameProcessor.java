@@ -33,7 +33,7 @@ import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.function.BiConsumer;
 
-import static am.ik.csng.processor.CompileSafeNameTemplate.template;
+import static am.ik.csng.processor.CompileSafeNameTemplate.templateTarget;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 import static javax.lang.model.element.ElementKind.*;
@@ -109,7 +109,7 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 
 	private void writeTypeSafeNameFile(String className,
 			List<Pair<Element, Integer>> elements) {
-		this.writeFile(className + "Name", elements, (pair, metas) -> {
+		this.writeFile(className, "Name", elements, (pair, metas) -> {
 			final Element element = pair.first();
 			final CompileSafeName typeSafeName = element
 					.getAnnotation(CompileSafeName.class);
@@ -120,30 +120,32 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 				final String target = lowerCamel(typeSafeName.getter()
 						? name.replaceFirst("^" + getterPrefix(type), "")
 						: name);
-				metas.put(target, template(target));
+				metas.put(target, templateTarget(target));
 			}
 			else if (kind == PARAMETER) {
-				metas.put(name, template(name));
+				metas.put(name, templateTarget(name));
 			}
 		});
 	}
 
 	private void writeTypeSafePropertiesFile(String className,
 			List<Pair<Element, Integer>> elements) {
-		this.writeFile(className + "Properties", elements, (pair, metas) -> {
+		this.writeFile(className, "Properties", elements, (pair, metas) -> {
 			final Element element = pair.first();
 			final String name = element.getSimpleName().toString();
-			metas.put(name, CompileSafeNameTemplate
-					.template(element.getKind() == CLASS ? lowerCamel(name) : name));
+			metas.put(name, CompileSafeNameTemplate.templateTarget(
+					element.getKind() == CLASS ? lowerCamel(name) : name));
 		});
 	}
 
-	private void writeFile(String className, List<Pair<Element, Integer>> elements,
+	private void writeFile(String className, String metaClassNameSuffix,
+			List<Pair<Element, Integer>> elements,
 			BiConsumer<Pair<Element, Integer>, Map<String, String>> processElement) {
 		final Pair<String, String> pair = splitClassName(className);
 		final String packageName = pair.first();
 		final String simpleClassName = pair.second();
-		final String metaSimpleClassName = "_" + simpleClassName.replace('.', '_');
+		final String metaSimpleClassName = "_" + simpleClassName.replace('.', '_')
+				+ metaClassNameSuffix;
 		final String metaClassName = packageName + "." + metaSimpleClassName;
 		try {
 			final JavaFileObject builderFile = super.processingEnv.getFiler()
@@ -162,7 +164,7 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 				out.print("public class ");
 				out.print(metaSimpleClassName);
 				out.println(" {");
-
+				out.println(CompileSafeNameTemplate.templateClass(simpleClassName));
 				final Map<String, String> metas = new LinkedHashMap<>();
 				for (Pair<Element, Integer> element : elements) {
 					processElement.accept(element, metas);

@@ -16,6 +16,11 @@
 package test;
 
 public class _AddressName {
+    public static final String LOWER_CAMEL = "address";
+    public static final String UPPER_CAMEL = "Address";
+    public static final String LOWER_UNDERSCORE = "address";
+    public static final String UPPER_UNDERSCORE = "ADDRESS";
+
     public static final class Country {
         public static final String LOWER_CAMEL = "country";
         public static final String UPPER_CAMEL = "Country";
