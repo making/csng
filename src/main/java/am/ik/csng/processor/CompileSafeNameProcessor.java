@@ -23,17 +23,15 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
-import javax.lang.model.type.TypeMirror;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UncheckedIOException;
-import java.nio.CharBuffer;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.function.BiConsumer;
 
-import static am.ik.csng.processor.CompileSafeNameTemplate.templateTarget;
+import static am.ik.csng.processor.CompileSafeNameTemplate.*;
 import static java.util.stream.Collectors.*;
 import static javax.lang.model.element.ElementKind.CLASS;
 import static javax.lang.model.element.ElementKind.METHOD;
@@ -114,8 +112,8 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 		this.writeFile(className, "Properties", elements, (pair, metas) -> {
 			final Element element = pair.first();
 			final String name = element.getSimpleName().toString();
-			metas.put(name, CompileSafeNameTemplate.templateTarget(
-					element.getKind() == CLASS ? lowerCamel(name) : name));
+			metas.put(name,
+					templateTarget(element.getKind() == CLASS ? lowerCamel(name) : name));
 		});
 	}
 
@@ -145,7 +143,7 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 				out.print("public class ");
 				out.print(metaSimpleClassName);
 				out.println(" {");
-				out.println(CompileSafeNameTemplate.templateClass(simpleClassName));
+				out.println(templateClass(simpleClassName));
 				final Map<String, String> metas = new LinkedHashMap<>();
 				for (Pair<Element, Integer> element : elements) {
 					processElement.accept(element, metas);
@@ -179,44 +177,4 @@ public class CompileSafeNameProcessor extends AbstractProcessor {
 		return -1;
 	}
 
-	static String lowerCamel(String s) {
-		if (s.length() >= 2) {
-			final String firstTwo = s.substring(0, 2);
-			if (firstTwo.equals(firstTwo.toUpperCase())) {
-				return s;
-			}
-		}
-		return s.substring(0, 1).toLowerCase() + s.substring(1);
-	}
-
-	static String upperCamel(String s) {
-		if (s.length() >= 2) {
-			final String firstTwo = s.substring(0, 2);
-			if (firstTwo.equals(firstTwo.toUpperCase())) {
-				return s;
-			}
-		}
-		return s.substring(0, 1).toUpperCase() + s.substring(1);
-	}
-
-	static String lowerUnderscore(String text) {
-		if (text == null || text.isEmpty()) {
-			return text;
-		}
-		final StringBuilder s = new StringBuilder();
-		final CharBuffer buffer = CharBuffer.wrap(text);
-		while (buffer.hasRemaining()) {
-			final char c = buffer.get();
-			s.append(Character.toLowerCase(c));
-			buffer.mark();
-			if (buffer.hasRemaining()) {
-				final char c2 = buffer.get();
-				if (Character.isLowerCase(c) && Character.isUpperCase(c2)) {
-					s.append("_");
-				}
-				buffer.reset();
-			}
-		}
-		return s.toString();
-	}
 }

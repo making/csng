@@ -68,21 +68,21 @@ class CompileSafeNameProcessorTest {
 
 	@Test
 	void testBeanLowerCamel() {
-		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("Name"))
+		Assertions.assertThat(CompileSafeNameTemplate.lowerCamel("Name"))
 				.isEqualTo("name");
-		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("NAme"))
+		Assertions.assertThat(CompileSafeNameTemplate.lowerCamel("NAme"))
 				.isEqualTo("NAme");
-		Assertions.assertThat(CompileSafeNameProcessor.lowerCamel("NAME"))
+		Assertions.assertThat(CompileSafeNameTemplate.lowerCamel("NAME"))
 				.isEqualTo("NAME");
 	}
 
 	@Test
 	void testBeanUpperCamel() {
-		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("name"))
+		Assertions.assertThat(CompileSafeNameTemplate.upperCamel("name"))
 				.isEqualTo("Name");
-		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("NAme"))
+		Assertions.assertThat(CompileSafeNameTemplate.upperCamel("NAme"))
 				.isEqualTo("NAme");
-		Assertions.assertThat(CompileSafeNameProcessor.upperCamel("NAME"))
+		Assertions.assertThat(CompileSafeNameTemplate.upperCamel("NAME"))
 				.isEqualTo("NAME");
 	}
 

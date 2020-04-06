@@ -15,7 +15,7 @@
  */
 package am.ik.csng.processor;
 
-import static am.ik.csng.processor.CompileSafeNameProcessor.*;
+import java.nio.CharBuffer;
 
 final class CompileSafeNameTemplate {
 	static String templateClass(String simpleClassName) {
@@ -48,5 +48,46 @@ final class CompileSafeNameTemplate {
 				"\t\tpublic static final String UPPER_UNDERSCORE = \"%s\";\n" + //
 				"\t}\n", upperCamel, lowerCamel, upperCamel, lowerUnderscore,
 				upperUnderscore);
+	}
+
+	static String lowerCamel(String s) {
+		if (s.length() >= 2) {
+			final String firstTwo = s.substring(0, 2);
+			if (firstTwo.equals(firstTwo.toUpperCase())) {
+				return s;
+			}
+		}
+		return s.substring(0, 1).toLowerCase() + s.substring(1);
+	}
+
+	static String upperCamel(String s) {
+		if (s.length() >= 2) {
+			final String firstTwo = s.substring(0, 2);
+			if (firstTwo.equals(firstTwo.toUpperCase())) {
+				return s;
+			}
+		}
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
+	}
+
+	static String lowerUnderscore(String text) {
+		if (text == null || text.isEmpty()) {
+			return text;
+		}
+		final StringBuilder s = new StringBuilder();
+		final CharBuffer buffer = CharBuffer.wrap(text);
+		while (buffer.hasRemaining()) {
+			final char c = buffer.get();
+			s.append(Character.toLowerCase(c));
+			buffer.mark();
+			if (buffer.hasRemaining()) {
+				final char c2 = buffer.get();
+				if (Character.isLowerCase(c) && Character.isUpperCase(c2)) {
+					s.append("_");
+				}
+				buffer.reset();
+			}
+		}
+		return s.toString();
 	}
 }
