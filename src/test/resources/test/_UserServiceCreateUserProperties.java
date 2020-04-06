@@ -16,6 +16,11 @@
 package test;
 
 public class _UserServiceCreateUserProperties {
+    public static final String LOWER_CAMEL = "userServiceCreateUser";
+    public static final String UPPER_CAMEL = "UserServiceCreateUser";
+    public static final String LOWER_UNDERSCORE = "user_service_create_user";
+    public static final String UPPER_UNDERSCORE = "USER_SERVICE_CREATE_USER";
+
     public static final class UserService {
         public static final String LOWER_CAMEL = "userService";
         public static final String UPPER_CAMEL = "UserService";

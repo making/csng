@@ -16,6 +16,11 @@
 package test;
 
 public class _Car2Properties {
+	public static final String LOWER_CAMEL = "car2";
+	public static final String UPPER_CAMEL = "Car2";
+	public static final String LOWER_UNDERSCORE = "car2";
+	public static final String UPPER_UNDERSCORE = "CAR2";
+
 	public static final class Name {
 		public static final String LOWER_CAMEL = "name";
 		public static final String UPPER_CAMEL = "Name";

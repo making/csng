@@ -18,7 +18,24 @@ package am.ik.csng.processor;
 import static am.ik.csng.processor.CompileSafeNameProcessor.*;
 
 final class CompileSafeNameTemplate {
-	static String template(String target) {
+	static String templateClass(String simpleClassName) {
+		final String[] split = simpleClassName.split("\\.");
+		if (split.length >= 2) {
+			simpleClassName = split[1];
+		}
+		final String lowerCamel = lowerCamel(simpleClassName);
+		final String upperCamel = upperCamel(simpleClassName);
+		final String lowerUnderscore = lowerUnderscore(lowerCamel);
+		final String upperUnderscore = lowerUnderscore.toUpperCase();
+
+		return String.format("\tpublic static final String LOWER_CAMEL = \"%s\";\n" + //
+				"\tpublic static final String UPPER_CAMEL = \"%s\";\n" + //
+				"\tpublic static final String LOWER_UNDERSCORE = \"%s\";\n" + //
+				"\tpublic static final String UPPER_UNDERSCORE = \"%s\";\n", lowerCamel,
+				upperCamel, lowerUnderscore, upperUnderscore);
+	}
+
+	static String templateTarget(String target) {
 		final String lowerCamel = lowerCamel(target);
 		final String upperCamel = upperCamel(target);
 		final String lowerUnderscore = lowerUnderscore(lowerCamel);
