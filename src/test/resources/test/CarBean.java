@@ -18,10 +18,11 @@ package test;
 import am.ik.csng.CompileSafeName;
 
 public class CarBean {
+    @CompileSafeName
     private String name;
+    @CompileSafeName
     private int gas;
 
-    @CompileSafeName
     public String getName() {
         return this.name;
     }
@@ -30,7 +31,6 @@ public class CarBean {
         this.name = name;
     }
 
-    @CompileSafeName
     public int getGas() {
         return this.gas;
     }

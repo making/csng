@@ -15,7 +15,7 @@
  */
 package test;
 
-public class _Address_CountryName {
+public final class _Address_CountryName {
 	public static final String LOWER_CAMEL = "country";
 	public static final String UPPER_CAMEL = "Country";
 	public static final String LOWER_UNDERSCORE = "country";

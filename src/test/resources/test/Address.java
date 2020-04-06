@@ -18,11 +18,11 @@ package test;
 import am.ik.csng.CompileSafeName;
 
 public class Address {
-
+    @CompileSafeName
     private final Country country;
-
+    @CompileSafeName
     private final PhoneNumber phoneNumber;
-
+    @CompileSafeName
     private final String street;
 
     public Address(Country country,
@@ -33,44 +33,39 @@ public class Address {
         this.phoneNumber = phoneNumber;
     }
 
-    @CompileSafeName(getter = false)
     public Country country() {
         return this.country;
     }
 
-    @CompileSafeName(getter = false)
     public PhoneNumber phoneNumber() {
         return this.phoneNumber;
     }
 
-    @CompileSafeName(getter = false)
     public String street() {
         return this.street;
     }
 
     public static class Country {
-
+        @CompileSafeName
         private final String name;
 
         public Country(String name) {
             this.name = name;
         }
 
-        @CompileSafeName(getter = false)
         public String name() {
             return this.name;
         }
     }
 
     public static class PhoneNumber {
-
+        @CompileSafeName
         private final String value;
 
         public PhoneNumber(String value) {
             this.value = value;
         }
 
-        @CompileSafeName(getter = false)
         public String value() {
             return this.value;
         }
